@@ -6,7 +6,7 @@ This local plugin reads the nearest `mcp.json` when its bridge starts and expose
 
 ## Install
 
-Requires Node.js 22 or newer, Git, and Claude Code with plugin marketplace support. Claude Code 2.1.309 is the version exercised locally; older versions have not been tested here.
+Requires Node.js 22 or newer, Git, and Claude Code with plugin marketplace support. Claude Code 2.1.309 is the version exercised locally; older versions have not been tested here. See [tested behavior](TESTING.md) for live installation results.
 
 ```sh
 claude plugin marketplace add autobelay/claude-project-scoped-mcp
@@ -27,6 +27,7 @@ The plugin launches its bundled JavaScript bridge directly with Node. It does no
 ### Update and remove
 
 ```sh
+claude plugin marketplace update autobelay-claude-project-mcp
 claude plugin update project-scoped-mcp@autobelay-claude-project-mcp
 ```
 
@@ -65,6 +66,8 @@ claude
 Ask: “Use the project-design MCP to read this project's design tokens.” The example server is bundled in the repository.
 
 ## Project manifest
+
+Claude Code already supports native project `.mcp.json` files. This plugin is for repositories using the portable `mcp.json` convention and a single user-scoped installation, without maintaining another set of server declarations for each client.
 
 Place `mcp.json` at the project root:
 
