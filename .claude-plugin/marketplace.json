@@ -1,0 +1,16 @@
+{
+  "name": "autobelay-claude-project-mcp",
+  "owner": {
+    "name": "Autobelay"
+  },
+  "plugins": [
+    {
+      "name": "project-scoped-mcp",
+      "source": "./",
+      "description": "Automatically discover the active project\u2019s mcp.json and connect its local and remote MCP servers.",
+      "version": "0.1.0",
+      "category": "development"
+    }
+  ],
+  "description": "Project-specific MCP discovery for local Claude Code sessions."
+}

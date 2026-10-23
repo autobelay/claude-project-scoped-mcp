@@ -1,0 +1,17 @@
+{
+  "name": "project-scoped-mcp",
+  "version": "0.1.0",
+  "description": "Automatically discover the active project\u2019s mcp.json and connect its local and remote MCP servers.",
+  "author": {
+    "name": "Autobelay"
+  },
+  "homepage": "https://github.com/autobelay/claude-project-scoped-mcp",
+  "repository": "https://github.com/autobelay/claude-project-scoped-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "project-scoped",
+    "local-tools"
+  ],
+  "mcpServers": "./plugin.mcp.json"
+}

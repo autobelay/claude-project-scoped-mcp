@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "project-scoped": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/dist/bridge.cjs",
+        "--directory",
+        "${CLAUDE_PROJECT_DIR}"
+      ],
+      "timeout": 300000
+    }
+  }
+}
