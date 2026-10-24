@@ -1,8 +1,16 @@
 # Tested behavior
 
-Release **v0.1.0** was installed from the public GitHub marketplace and exercised with **Claude Code 2.1.309**, **Node.js 24.22.0**, on **macOS**, on 2026-10-23.
+## v0.1.1 installed plugin
 
-## Live installed-plugin sessions
+On 2026-10-24, the GitHub marketplace and user-scoped installation were updated to **v0.1.1** on macOS with **Claude Code 2.1.310** and **Node.js 24.22.0**. `claude plugin details project-scoped-mcp` showed **Local Project MCP (project-scoped-mcp) 0.1.1**, the new description, and one MCP server named `local-project-mcp`.
+
+An ordinary `claude -p` session in `examples/design-studio` loaded the installed plugin from the marketplace. It used no `--plugin-dir`, `--mcp-config`, or launch wrapper. Built-in tools were disabled, and only tools from `plugin_project-scoped-mcp_local-project-mcp` were allowed. Claude called `project_mcp_status` and the project's `read_design_tokens` tool. Status reported one connected server with one tool; the token call returned the fictional Field Notes colors, spacing, typography, and principles. No project files were written.
+
+`npm run build` and all eight synthetic tests passed. `claude plugin validate .` passed; its only warning concerned optional artwork for an Anthropic directory listing. These checks and the CLI details output do not establish how every Claude Code interface renders the new tool titles.
+
+## v0.1.0 installed sessions
+
+Release **v0.1.0** was installed from the public GitHub marketplace and exercised with **Claude Code 2.1.309**, **Node.js 24.22.0**, on **macOS**, on 2026-10-23.
 
 The final runs used the user-scoped GitHub installation with ordinary `claude -p` sessions. They did not use `--plugin-dir`, `--mcp-config`, a launch wrapper, or generated project configuration. Only the requested read-only plugin tools were allowed for these tests; built-in tools were disabled.
 

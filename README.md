@@ -6,7 +6,7 @@ Local Project MCP automatically reads the nearest `mcp.json` for the current pro
 
 ## Install
 
-Requires Node.js 22 or newer, Git, and Claude Code with plugin marketplace support. Claude Code 2.1.309 is the version exercised locally; older versions have not been tested here. See [tested behavior](TESTING.md) for live installation results.
+Requires Node.js 22 or newer, Git, and Claude Code with plugin marketplace support. Claude Code 2.1.309 and 2.1.310 have been exercised locally; older versions have not been tested here. See [tested behavior](TESTING.md) for live installation results.
 
 ```sh
 claude plugin marketplace add autobelay/claude-project-scoped-mcp
@@ -31,7 +31,9 @@ claude plugin marketplace update autobelay-claude-project-mcp
 claude plugin update project-scoped-mcp@autobelay-claude-project-mcp
 ```
 
-Start a new session to use an updated bridge. To remove the plugin and marketplace:
+Start a new session to use an updated bridge. Version 0.1.1 names the MCP connection `local-project-mcp`. If you configured Claude Code permissions for the former `project-scoped` connection, update those names. The plugin installation ID remains `project-scoped-mcp`.
+
+To remove the plugin and marketplace:
 
 ```sh
 claude plugin uninstall project-scoped-mcp@autobelay-claude-project-mcp
