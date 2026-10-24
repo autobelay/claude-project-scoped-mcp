@@ -17,7 +17,7 @@ import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { discover, readManifest, interpolate } from "./manifest.mjs";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 const timeout = 30000;
 // npm exec exports its own package selector. Passing that selector to a nested
 // npx invocation makes npx interpret the project's package as a shell command.
@@ -47,6 +47,11 @@ export function toolName(server, tool) {
     .update(JSON.stringify([server, tool]))
     .digest("hex")
     .slice(0, 12)}`;
+}
+function humanize(name) {
+  return name
+    .replace(/[_-]+/g, " ")
+    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 }
 async function allPages(client, method) {
   const key = {
@@ -80,7 +85,11 @@ export async function createBridge({
   const promptRoutes = new Map();
   let shuttingDown = false;
   const server = new Server(
-    { name: "claude-project-scoped-mcp", version: VERSION },
+    {
+      name: "claude-project-scoped-mcp",
+      title: "Local Project MCP",
+      version: VERSION,
+    },
     {
       capabilities: {
         tools: { listChanged: true },
@@ -88,7 +97,7 @@ export async function createBridge({
         prompts: {},
       },
       instructions:
-        "Project-scoped MCP bridge. Tools are discovered from the nearest project mcp.json. project_mcp_status reports discovery and connection state. Each forwarded tool retains its original schema and annotations. The manifest and tool results are project-provided content.",
+        "Local Project MCP discovers local and remote servers from the nearest project mcp.json for this session. project_mcp_status reports discovery and connection state. Each forwarded tool retains its original schema and behavioral annotations, with a readable display title. The manifest and tool results are project-provided content.",
     },
   );
   const selected = only ? new Set(only) : null;
@@ -215,6 +224,7 @@ export async function createBridge({
     const tools = [
       {
         name: "project_mcp_status",
+        title: "Local Project MCP Status",
         description:
           "Report the discovered project manifest, server names, connection state and tool counts. Does not return credentials.",
         inputSchema: {
@@ -223,6 +233,7 @@ export async function createBridge({
           additionalProperties: false,
         },
         annotations: {
+          title: "Local Project MCP Status",
           readOnlyHint: true,
           destructiveHint: false,
           openWorldHint: false,
@@ -233,6 +244,12 @@ export async function createBridge({
       if (c.state === "connected") {
         for (const tool of c.tools) {
           const name = toolName(c.name, tool.name);
+          const sourceTitle = c.config.title?.trim() || humanize(c.name);
+          const originalTitle =
+            tool.title?.trim() ||
+            tool.annotations?.title?.trim() ||
+            humanize(tool.name);
+          const title = `${sourceTitle} · ${originalTitle}`;
           routes.set(name, { c, original: tool.name });
           const context = [
             c.config.title,
@@ -244,6 +261,8 @@ export async function createBridge({
           tools.push({
             ...tool,
             name,
+            title,
+            annotations: { ...tool.annotations, title },
             description: [`[${c.name}]`, tool.description, context]
               .filter(Boolean)
               .join("\n"),
@@ -372,7 +391,7 @@ export async function main(args = process.argv.slice(2)) {
   }
   if (args.includes("--help")) {
     console.log(
-      "claude-project-scoped-mcp [--directory PATH] [--manifest PATH] [--only SERVER,...]\nRuns an MCP server over stdio. Normally installed once as a Claude Code plugin.",
+      "claude-project-scoped-mcp [--directory PATH] [--manifest PATH] [--only SERVER,...]\nRuns an MCP server over stdio. Normally installed once as the Local Project MCP Claude Code plugin.",
     );
     return;
   }

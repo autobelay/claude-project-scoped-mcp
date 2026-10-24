@@ -1,7 +1,7 @@
 {
   "name": "@autobelay/claude-project-scoped-mcp",
-  "version": "0.1.0",
-  "description": "Discover a project's mcp.json when Claude Code starts, and expose its MCP tools through a session-local bridge.",
+  "version": "0.1.1",
+  "description": "Local Project MCP discovers the current project's mcp.json and connects its local and remote MCP servers for each Claude Code session, without a launch wrapper or configuration sync.",
   "type": "module",
   "license": "MIT",
   "repository": {

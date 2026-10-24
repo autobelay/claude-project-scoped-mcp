@@ -1,7 +1,8 @@
 {
   "name": "project-scoped-mcp",
-  "version": "0.1.0",
-  "description": "Automatically discover the active project\u2019s mcp.json and connect its local and remote MCP servers.",
+  "displayName": "Local Project MCP",
+  "version": "0.1.1",
+  "description": "Automatically discover the current project's mcp.json and connect its local and remote MCP servers for each Claude Code session. No launch wrapper or configuration sync.",
   "author": {
     "name": "Autobelay"
   },

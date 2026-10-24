@@ -74,10 +74,19 @@ test("bundle discovers cwd; forwards tools, pagination, env, resources and promp
     }),
   );
   const c = await client(t, join(p, "nested"));
+  assert.equal(c.getServerVersion().title, "Local Project MCP");
   const list = await c.listTools();
   assert.equal(list.tools.length, 3);
   const inspect = list.tools.find((x) => x.name.startsWith("design__inspect"));
   assert.equal(inspect.annotations.readOnlyHint, true);
+  assert.equal(inspect.title, "Design · Inspect Tokens");
+  assert.equal(inspect.annotations.title, inspect.title);
+  const second = list.tools.find((x) => x.name.startsWith("design__second"));
+  assert.equal(second.title, "Design · Next Palette");
+  assert.equal(
+    list.tools.find((x) => x.name === "project_mcp_status").title,
+    "Local Project MCP Status",
+  );
   const result = await c.callTool({ name: inspect.name, arguments: {} });
   assert.deepEqual(JSON.parse(result.content[0].text), {
     cwd: p,

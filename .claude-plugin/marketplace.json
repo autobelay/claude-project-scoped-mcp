@@ -6,11 +6,12 @@
   "plugins": [
     {
       "name": "project-scoped-mcp",
+      "displayName": "Local Project MCP",
       "source": "./",
-      "description": "Automatically discover the active project\u2019s mcp.json and connect its local and remote MCP servers.",
-      "version": "0.1.0",
+      "description": "Automatically discover the current project's mcp.json and connect its local and remote MCP servers for each Claude Code session. No launch wrapper or configuration sync.",
+      "version": "0.1.1",
       "category": "development"
     }
   ],
-  "description": "Project-specific MCP discovery for local Claude Code sessions."
+  "description": "Local Project MCP connects each Claude Code session to the local and remote MCP servers declared in its project's mcp.json."
 }

@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "project-scoped": {
+    "local-project-mcp": {
       "type": "stdio",
       "command": "node",
       "args": [

@@ -19,9 +19,13 @@ s.setRequestHandler(ListToolsRequestSchema, async (req) => ({
   tools: [
     {
       name: req.params?.cursor ? "second" : "inspect",
+      ...(req.params?.cursor ? {} : { title: "Inspect Tokens" }),
       description: "Read a synthetic token",
       inputSchema: { type: "object", properties: {} },
-      annotations: { readOnlyHint: true },
+      annotations: {
+        readOnlyHint: true,
+        ...(req.params?.cursor ? { title: "Next Palette" } : {}),
+      },
     },
   ],
   ...(!req.params?.cursor ? { nextCursor: "page2" } : {}),

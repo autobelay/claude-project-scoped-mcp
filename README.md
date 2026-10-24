@@ -1,8 +1,8 @@
-# Claude Project-scoped MCP
+# Local Project MCP for Claude Code
 
 Install once. Open a project in Claude Code. Use the MCP servers declared by that project.
 
-This local plugin reads the nearest `mcp.json` when its bridge starts and exposes that project's tools through one MCP connection. It uses Claude Code's documented plugin and project directory variables. There is no launch wrapper, configuration synchronization, scheduled job, or system-wide watcher.
+Local Project MCP automatically reads the nearest `mcp.json` for the current project when a Claude Code session starts. It connects the local and remote servers declared there and exposes their tools through one session-scoped MCP connection. It uses Claude Code's documented plugin and project directory variables. There is no launch wrapper or configuration synchronization.
 
 ## Install
 
@@ -20,7 +20,7 @@ cd /path/to/project
 claude
 ```
 
-Ask: “Use `project_mcp_status` to report which project MCP servers are connected.” The underlying tools are individually available; Claude does not have to call a generic dispatcher.
+Ask: “Use `project_mcp_status` from Local Project MCP to report which project MCP servers are connected.” The underlying tools are individually available; Claude does not have to call a generic dispatcher.
 
 The plugin launches its bundled JavaScript bridge directly with Node. It does not download an executable at runtime or run an install script. A project's own servers may need additional runtimes, credentials, or network access. The install has no machine-specific project path.
 
@@ -103,7 +103,7 @@ Relative command arguments and environment values remain unchanged. Stdio server
 - **Project manifest:** implements a practical `mcp.json` subset from the evolving [Standard Client-Side Configuration Format proposal](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/2633): `mcpServers`, named servers, transport types, commands, arguments, environment, headers, title, and description. This proposal is not a finalized universal standard. Interactive `oauth` configuration is unsupported.
 - **Claude Code plugin:** the native `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, and `plugin.mcp.json` package the bridge. The MCP entry launches `node ${CLAUDE_PLUGIN_ROOT}/dist/bridge.cjs --directory ${CLAUDE_PROJECT_DIR}`. Claude Code [documents both substitutions](https://code.claude.com/docs/en/plugins-reference#environment-variables) for plugin MCP configuration. There are no lifecycle hooks.
 
-Tools preserve input and output schemas, annotations, and structured, image, and text results. Names include the original server and tool labels plus a stable digest to avoid collisions. Manifest descriptions and downstream server instructions accompany tools. Paginated tool lists and tool-list change notifications are supported. Calls forward cancellation and use a five-minute timeout.
+Tools preserve input and output schemas, behavioral annotations, and structured, image, and text results. Programmatic names include the original server and tool labels plus a stable digest to avoid collisions. Human-readable titles use the manifest's server title or server key and the original tool title or name, without the digest. Manifest descriptions and downstream server instructions accompany tools. Paginated tool lists and tool-list change notifications are supported. Calls forward cancellation and use a five-minute timeout.
 
 Listed resources and prompts are forwarded with namespaced identifiers. Resource templates, subscriptions, completion, sampling, elicitation, interactive OAuth, and experimental task execution are not implemented. The bridge does not advertise those capabilities. A normal tool that returns a job ID and provides polling tools works normally.
 

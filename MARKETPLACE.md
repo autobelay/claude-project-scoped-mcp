@@ -1,6 +1,6 @@
-# Claude Code marketplace distribution
+# Local Project MCP distribution
 
-This repository contains both a Claude Code plugin and an independent marketplace catalog. The plugin manifest is `.claude-plugin/plugin.json`, the catalog is `.claude-plugin/marketplace.json`, and `plugin.mcp.json` declares one local stdio bridge. The manifest points to that MCP configuration. The catalog points to the repository root with `"source": "./"`, as shown in [Claude Code's publishing guide](https://code.claude.com/docs/en/plugins/publish#add-the-marketplace-file-to-your-repository).
+This repository contains the Local Project MCP plugin and an independent Claude Code marketplace catalog. The plugin manifest is `.claude-plugin/plugin.json`, the catalog is `.claude-plugin/marketplace.json`, and `plugin.mcp.json` declares one local stdio bridge. The manifest points to that MCP configuration. The catalog points to the repository root with `"source": "./"`, as shown in [Claude Code's publishing guide](https://code.claude.com/docs/en/plugins/publish#add-the-marketplace-file-to-your-repository).
 
 ```sh
 claude plugin marketplace add autobelay/claude-project-scoped-mcp
